@@ -1,5 +1,5 @@
 from datetime import timedelta
-
+import csv
 
 def init_leaderboard() -> dict[str, timedelta]:
     leaderboard = {}
@@ -54,12 +54,20 @@ def calculate_average_time(leaderboard):
     average_time = sum(valid_times, timedelta()) / len(valid_times)
     return (True, average_time)
 
-
-
 def export_leaderboard(leaderboard, destination):
-    data = [["Name", "Duration"]]
-    for i in range(len(leaderboard)):
-        newData = [leaderboard[]]
+    try:
+        with open(destination, "w", newline="") as csvfile:
+            writer = csv.writer(csvfile)
+            writer.writerow(["Name", "Duration"])
 
-
-
+            for player, time in leaderboard.items():
+                if isinstance(time, timedelta):
+                    total_seconds = int(time.total_seconds())
+                    hours, remainder = divmod(total_seconds, 3600)
+                    minutes, seconds = divmod(remainder, 60)
+                    writer.writerow([player, hours, minutes, seconds])
+                else:
+                    # Player has no recorded time
+                    writer.writerow([player, "", "", ""])
+    except Exception as e:
+        raise ValueError("Error writing leaderboard file") from e
