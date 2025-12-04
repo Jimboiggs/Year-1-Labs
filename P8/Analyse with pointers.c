@@ -26,5 +26,4 @@ int analyse(double *prod , double *sum, double d1, double d2)
     {
         return 1;
     }
-   
 }
