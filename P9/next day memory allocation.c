@@ -50,5 +50,11 @@ struct date *next_day (struct date *test_date)
         new_date->day -= count(new_date->month, new_date->year);
         new_date->month += 1;
     }
+    if (new_date->month > 12)
+    {
+        new_date->month -= 12;
+        new_date->year += 1;
+    }
 
+    return new_date;
 }
