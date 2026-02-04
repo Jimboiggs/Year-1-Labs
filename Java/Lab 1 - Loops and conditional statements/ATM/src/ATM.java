@@ -25,7 +25,7 @@ public class ATM {
         } else if (choice == 3) {
             inquire(balence);
         } else {
-            quit(balence);
+            quit();
         }
     }
 
@@ -40,5 +40,28 @@ public class ATM {
         System.out.println("*****************************************");
         System.out.println("         Your new balance is " + balence);
         System.out.println("*****************************************");
+    }
+    public static void deposit(Integer balence){
+        Toolbox myToolbox = new Toolbox();
+        System.out.println("*****************************************");
+        System.out.println("                Deposit                 ");
+        System.out.println("*****************************************");
+        System.out.println("How much would you like to deposit?");
+        Integer amount = myToolbox.readIntegerFromCmd();
+        balence += amount;
+        System.out.println("*****************************************");
+        System.out.println("         Your new balance is " + balence);
+        System.out.println("*****************************************");
+    }
+    public static void inquire(Integer balence){
+        System.out.println("*****************************************");
+        System.out.println("         Your balance is " + balence);
+        System.out.println("*****************************************");
+    }
+    public static void quit(){
+        System.out.println("*****************************************");
+        System.out.println("                Goodbye!                 ");
+        System.out.println("*****************************************");
+        System.exit(0);
     }
 }
