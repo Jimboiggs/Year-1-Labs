@@ -18,32 +18,31 @@ public class ATM {
             }
         }
 
+        while (true) {
+            System.out.println("What do you want to do?");
+            System.out.println("1 : Withdraw");
+            System.out.println("2 : Deposit");
+            System.out.println("3 : Inquire");
+            System.out.println("4 : Quit");
 
-        System.out.println("What do you want to do?");
-        System.out.println("1 : Withdraw");
-        System.out.println("2 : Deposit");
-        System.out.println("3 : Inquire");
-        System.out.println("4 : Quit");
-
-        valid = false;
-        while (!valid) {
-            Integer choice = myToolbox.readIntegerFromCmd();
-            if (choice == 1) {
-                valid = true;
-                withdraw(balance);
-            } else if (choice == 2) {
-                valid = true;
-                deposit(balance);
-            } else if (choice == 3) {
-                valid = true;
-                inquire(balance);
-            } else if (choice == 4){
-                valid = true;
-                quit();
+            valid = false;
+            while (!valid) {
+                Integer choice = myToolbox.readIntegerFromCmd();
+                if (choice == 1) {
+                    valid = true;
+                    withdraw(balance);
+                } else if (choice == 2) {
+                    valid = true;
+                    deposit(balance);
+                } else if (choice == 3) {
+                    valid = true;
+                    inquire(balance);
+                } else if (choice == 4){
+                    valid = true;
+                    quit();
+                }
             }
         }
-
-
 
     }
 
@@ -57,7 +56,7 @@ public class ATM {
         Integer amount = 0;
         while (!valid) {
             amount = myToolbox.readIntegerFromCmd();
-            if (amount >= 0) {
+            if (amount >= 0 && (balance - amount >= 0)) {
                 valid = true;
             }
         }
