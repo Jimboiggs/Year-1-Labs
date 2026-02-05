@@ -37,12 +37,12 @@ class OutputCapturer {
 		System.out.flush();
 		return this.outputStream.toString().replaceAll("\\r\\n", "\n").replaceAll("\\r", "\n");
 	}
+
 	public void stop() {
 		System.setOut(this.origOut);
 	}
 }
 
-@DisplayName("Lab 2 part 2")
 class ATMTest {
 	
 	OutputCapturer outputHarness;
@@ -75,51 +75,171 @@ class ATMTest {
 		this.outputHarness.stop();
 		System.setSecurityManager(oldSM);
 	}
-	
+
 	@Test
-	@DisplayName("Test ATM's inquire method")
-	void testPart2Inquire() {
+	@DisplayName("Test ATM's quit method")
+	void testPart3Quit() {
 		
 		Integer[] randomNumbers = { };
-		String[] inputs = { new String("100"), new String("3")};
+		String[] inputs = { new String("100"), new String("4") };
 		Toolbox.setTestingData(randomNumbers, inputs);
 		
 		ATM atm = new ATM();
-		atm.go();
+		Throwable exception = assertThrows(SecurityException.class, () -> {
+			atm.go();
+		});
+		
+		String out = outputHarness.getOutput();
+		
+		assertTrue(
+			out.contains("What do you want to do?") &&
+			out.contains("1 : Withdraw") &&
+			out.contains("2 : Deposit") &&
+			out.contains("3 : Inquire") &&
+			out.contains("4 : Quit"),
+			"shows menu");
+		
+		assertEquals("System exit called", exception.getMessage());
+	}
+	
+	@Test
+	@DisplayName("Test ATM's inquire method")
+	void testPart3Inquire() {
+		
+		Integer[] randomNumbers = { };
+		String[] inputs = { new String("100"), new String("3"), new String("4") };
+		Toolbox.setTestingData(randomNumbers, inputs);
+		
+		ATM atm = new ATM();
+		Throwable exception = assertThrows(SecurityException.class, () -> {
+			atm.go();
+		});
 		
 		String out = outputHarness.getOutput();
 				
 		assertTrue(out.contains("100"), "correct balance is shown");
+		assertEquals("System exit called", exception.getMessage());
+	
 	}
 
 	@Test
 	@DisplayName("Test ATM's deposit method")
-	void testPart2Deposit() {
+	void testPart3Deposit() {
 		
 		Integer[] randomNumbers = { };
-		String[] inputs = { new String("100"), new String("2"), new String ("20")};
+		String[] inputs = { new String("100"), new String("2"), new String ("20"), new String("3"), new String("4") };
 		Toolbox.setTestingData(randomNumbers, inputs);
 		
 		ATM atm = new ATM();
-		atm.go();
+		Throwable exception = assertThrows(SecurityException.class, () -> {
+			atm.go();
+		});
 		
 		String out = outputHarness.getOutput();
+		
 		assertTrue(out.contains("120"), "correct balance is shown");
+		assertEquals("System exit called", exception.getMessage());
+	
 	}
 	
 	@Test
-	@DisplayName("Test ATM's withdraw method")
-	void testPart2Withdraw() {
+	@DisplayName("Test ATM's withdrawal method")
+	void testPart3Withdraw() {
 		
 		Integer[] randomNumbers = { };
-		String[] inputs = { new String("100"), new String("1"), new String ("20")};
+		String[] inputs = { new String("100"), new String("1"), new String ("20"), new String("3"), new String("4") };
 		Toolbox.setTestingData(randomNumbers, inputs);
 		
 		ATM atm = new ATM();
-		atm.go();
+		Throwable exception = assertThrows(SecurityException.class, () -> {
+			atm.go();
+		});
 		
 		String out = outputHarness.getOutput();
+		
 		assertTrue(out.contains("80"), "correct balance is shown");
+		assertEquals("System exit called", exception.getMessage());
+	
+	}
+	
+	@Test
+	@DisplayName("Test negative deposits")
+	void testPart3DepositNeg() {
+		
+		Integer[] randomNumbers = { };
+		String[] inputs = { new String("100"), new String("2"), new String ("-120"), new String ("10"), new String("3"), new String("4") };
+		Toolbox.setTestingData(randomNumbers, inputs);
+		
+		ATM atm = new ATM();
+		Throwable exception = assertThrows(SecurityException.class, () -> {
+			atm.go();
+		});
+		
+		String out = outputHarness.getOutput();
+		
+		assertTrue(out.contains("110"), "correct balance is shown");
+		assertEquals("System exit called", exception.getMessage());
+	
+	}
+	
+	@Test
+	@DisplayName("Test negative withdrawals")
+	void testPart3WithdrawNeg() {
+		
+		Integer[] randomNumbers = { };
+		String[] inputs = { new String("100"), new String("1"), new String ("-120"), new String ("10"), new String("3"), new String("4") };
+		Toolbox.setTestingData(randomNumbers, inputs);
+		
+		ATM atm = new ATM();
+		Throwable exception = assertThrows(SecurityException.class, () -> {
+			atm.go();
+		});
+		
+		String out = outputHarness.getOutput();
+		
+		assertTrue(out.contains("90"), "correct balance is shown");
+		assertEquals("System exit called", exception.getMessage());
+	
+	}
+	
+	@Test
+	@DisplayName("Test withdrawal from negative balance")
+	void testPart3WithdrawNegBalance() {
+		
+		Integer[] randomNumbers = { };
+		String[] inputs = { new String("100"), new String("1"), new String ("120"), new String ("10"), new String("3"), new String("4") };
+		Toolbox.setTestingData(randomNumbers, inputs);
+		
+		ATM atm = new ATM();
+		Throwable exception = assertThrows(SecurityException.class, () -> {
+			atm.go();
+		});
+		
+		String out = outputHarness.getOutput();
+		
+		assertTrue(out.contains("90"), "correct balance is shown");
+		assertEquals("System exit called", exception.getMessage());
+	
+	}
+	
+	
+	@Test
+	@DisplayName("Test withdrawal causing negative balance")
+	void testPart3BalanceNeg() {
+		
+		Integer[] randomNumbers = { };
+		String[] inputs = { new String("-100"), new String("100"), new String("3"), new String("4") };
+		Toolbox.setTestingData(randomNumbers, inputs);
+		
+		ATM atm = new ATM();
+		Throwable exception = assertThrows(SecurityException.class, () -> {
+			atm.go();
+		});
+		
+		String out = outputHarness.getOutput();
+		
+		assertTrue(out.contains("100"), "correct balance is shown");
+		assertEquals("System exit called", exception.getMessage());
 	
 	}
 }
