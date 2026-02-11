@@ -16,18 +16,4 @@ public class SmartCard {
     public void setStaff (boolean bool) {
         staff = bool;
     }
-
-
-
-
-
-
-
-
-
-
-    public static void main(String[] args) {
-
-    }
-
 }
