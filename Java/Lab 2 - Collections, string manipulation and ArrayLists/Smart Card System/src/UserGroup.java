@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Iterator;
 
 public class UserGroup {
     private ArrayList<User> userList;
@@ -24,5 +25,26 @@ public class UserGroup {
         for (User u : userList) {
             System.out.println(u.getUsername() + " " + u.getUserType());
         }
+    }
+
+    public void removeFirstUser() {
+        userList.remove(0);
+    }
+    public void removeLastUser() {
+        userList.remove(userList.size() - 1);
+    }
+    public void removeUser(String username) {
+        Iterator<User> it = userList.iterator();
+        while (it.hasNext()) {
+            User u = it.next();
+
+            if (u.getUsername().equals(username)) {
+                it.remove();
+            }
+        }
+    }
+
+    public Iterator<User> getUserIterator() {
+        return userList.iterator();
     }
 }
