@@ -1,8 +1,8 @@
 public class Main {
-    public static void main() {
+    public static void main(String[] args) {
         UserGroup userGroup = new UserGroup();
-        UserGroup.addSampleData();
-        UserGroup.printUsernames();
+        userGroup.addSampleData();
+        userGroup.printUsernames();
 
     }
 }
