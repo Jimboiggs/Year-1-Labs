@@ -1,4 +1,4 @@
-public class Wolf extends Animal {
+public class Wolf extends Carnivore {
     public Wolf(String newName, Integer newAge) {
         super(newName, newAge);
     }

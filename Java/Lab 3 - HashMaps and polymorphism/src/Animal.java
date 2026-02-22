@@ -1,4 +1,4 @@
-public class Animal {
+public abstract class Animal {
     private String name;
     private Integer age;
 
@@ -14,4 +14,8 @@ public class Animal {
     public Integer getAge() {
         return age;
     }
+
+    public abstract void makeNoise();
+
+    public abstract void eat(Food food);
 }

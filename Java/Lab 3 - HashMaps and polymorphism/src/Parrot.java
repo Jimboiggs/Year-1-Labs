@@ -1,4 +1,4 @@
-public class Parrot extends Animal {
+public class Parrot extends Omnivore {
     public Parrot(String newName, Integer newAge) {
         super(newName, newAge);
     }
