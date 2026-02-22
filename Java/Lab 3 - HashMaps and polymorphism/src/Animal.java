@@ -7,10 +7,6 @@ public class Animal {
         age = newAge;
     }
 
-    public void makeNoise() {
-        System.out.println("Animal noise");
-    }
-
     public String getName() {
         return name;
     }
