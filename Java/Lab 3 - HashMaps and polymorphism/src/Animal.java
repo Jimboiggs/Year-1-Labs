@@ -1,14 +1,14 @@
-public class Parrot {
+public class Animal {
     private String name;
     private Integer age;
 
-    public Parrot(String newName, Integer newAge) {
+    public Animal(String newName, Integer newAge) {
         name = newName;
         age = newAge;
     }
 
     public void makeNoise() {
-        System.out.println("Parrot noise");
+        System.out.println("Animal noise");
     }
 
     public String getName() {

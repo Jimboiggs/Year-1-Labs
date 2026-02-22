@@ -1,21 +1,9 @@
-public class Parrot {
-    private String name;
-    private Integer age;
-
+public class Parrot extends Animal {
     public Parrot(String newName, Integer newAge) {
-        name = newName;
-        age = newAge;
+        super(newName, newAge);
     }
 
     public void makeNoise() {
         System.out.println("Parrot noise");
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public Integer getAge() {
-        return age;
     }
 }
