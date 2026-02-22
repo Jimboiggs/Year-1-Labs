@@ -15,7 +15,8 @@ public class Main {
             }
         }
         administrators.printUsernames();
-        administrators.getUser(administrators.size() - 1).setUserType("user");
+        int lastIndex = administrators.getUsers().size() - 1;
+        administrators.getUser(lastIndex).setUserType("user");
 
         userGroup.printUsernames();
         administrators.printUsernames();
