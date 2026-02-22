@@ -4,6 +4,10 @@ public abstract class Carnivore extends Animal {
     }
 
     public void eat(Food food) {
-        System.out.println("Eating " + food.getName());
+        if (food instanceof Plant) {
+            throw new RuntimeException (" Carnivore can only eat Meat.");
+        } else {
+            System.out.println("Eating " + food.getName());
+        }
     }
 }
