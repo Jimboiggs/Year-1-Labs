@@ -1,3 +1,4 @@
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 
@@ -37,112 +38,30 @@ public class Main {
             //System.out.println(word);
         //}
 
-        HashSet<String> combinedSet = group1.getWordSet(group2);
+        //HashSet<String> combinedSet = group1.getWordSet(group2);
 
+        //for (String word : combinedSet) {
+            //System.out.println(word);
+        //}
+
+        HashMap<String, Integer> counts1 = group1.getWordCounts();
+        HashMap<String, Integer> counts2 = group2.getWordCounts();
+
+        for (String word : counts1.keySet()) {
+            System.out.println(word + ": " + counts1.get(word));
+        }
+        System.out.println();
+
+        for (String word : counts2.keySet()) {
+            System.out.println(word + ": " + counts2.get(word));
+        }
+        System.out.println();
+
+        HashSet<String> combinedSet = group1.getWordSet(group2);
         for (String word : combinedSet) {
-            System.out.println(word);
+            int total = counts1.getOrDefault(word, 0) + counts2.getOrDefault(word, 0);
+
+            System.out.println(word + ": " + total);
         }
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

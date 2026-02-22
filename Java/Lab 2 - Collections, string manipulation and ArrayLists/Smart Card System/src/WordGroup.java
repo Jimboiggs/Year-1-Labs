@@ -1,3 +1,4 @@
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Locale;
 
@@ -22,6 +23,18 @@ public class WordGroup {
             set.add(word);
         }
         return set;
+    }
+
+    public HashMap<String, Integer> getWordCounts() {
+        HashMap<String, Integer> map = new HashMap<>();
+        for (String word : getWordArray()) {
+            if (map.containsKey(word)) {
+                map.put(word, map.get(word) + 1);
+            } else {
+                map.put(word, 1);
+            }
+        }
+        return map;
     }
 
 }
