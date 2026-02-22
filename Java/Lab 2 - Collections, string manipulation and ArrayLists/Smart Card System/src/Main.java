@@ -27,7 +27,7 @@ public class Main {
         WordGroup group1 = new WordGroup("You can discover more about a person in an hour of play than in a year of conversation");
         WordGroup group2 = new WordGroup("When you play play hard when you work dont play at all");
         String[] array1 = group1.getWordArray();
-        String[] array2 = group1.getWordArray();
+        String[] array2 = group2.getWordArray();
 
         for (String word : array1) {
             System.out.println(word);
