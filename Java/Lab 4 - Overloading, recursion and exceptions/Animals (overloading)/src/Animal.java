@@ -18,4 +18,11 @@ public abstract class Animal {
     public abstract void makeNoise();
 
     public abstract void eat(Food food);
+
+    public void eat(Food food, Integer n) {
+        int i;
+        for (i = 0; i < n; i++) {
+            System.out.println("Eating: " + food.getName());
+        }
+    }
 }

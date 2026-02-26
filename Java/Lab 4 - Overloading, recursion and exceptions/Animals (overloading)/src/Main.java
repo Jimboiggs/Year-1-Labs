@@ -16,5 +16,7 @@ public class Main {
         RedPanda examplePanda = new RedPanda("Poe", 20);
         examplePanda.makeNoise();
         examplePanda.eat(spinach);
+
+        exampleWolf.eat(chicken, 5);
     }
 }
