@@ -10,4 +10,8 @@ public abstract class Carnivore extends Animal {
             System.out.println("Eating " + food.getName());
         }
     }
+
+    public Carnivore() {
+        super();
+    }
 }

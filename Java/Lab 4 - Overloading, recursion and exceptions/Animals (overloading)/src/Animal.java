@@ -25,4 +25,8 @@ public abstract class Animal {
             System.out.println("Eating: " + food.getName());
         }
     }
+
+    public Animal() {
+        this("newborn", 0);
+    }
 }

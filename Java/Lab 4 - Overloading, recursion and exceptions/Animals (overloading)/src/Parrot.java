@@ -6,4 +6,8 @@ public class Parrot extends Omnivore {
     public void makeNoise() {
         System.out.println("Parrot noise");
     }
+
+    public Parrot(Integer age) {
+        this("Polly", age);
+    }
 }

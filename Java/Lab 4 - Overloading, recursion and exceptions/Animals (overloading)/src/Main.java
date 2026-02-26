@@ -18,5 +18,7 @@ public class Main {
         examplePanda.eat(spinach);
 
         exampleWolf.eat(chicken, 5);
+
+        Wolf babyWolf = new Wolf();
     }
 }
