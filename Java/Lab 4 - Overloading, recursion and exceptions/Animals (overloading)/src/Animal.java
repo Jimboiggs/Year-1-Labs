@@ -1,4 +1,4 @@
-public abstract class Animal {
+public abstract class Animal implements Comparable<Animal>{
     private String name;
     private Integer age;
 
@@ -28,5 +28,10 @@ public abstract class Animal {
 
     public Animal() {
         this("newborn", 0);
+    }
+
+    @Override
+    public int compareTo(Animal other) {
+        return this.age - other.age;
     }
 }
