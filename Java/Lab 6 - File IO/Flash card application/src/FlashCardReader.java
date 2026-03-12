@@ -1,9 +1,11 @@
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
 
 public class FlashCardReader {
     private BufferedReader reader;
+    private ArrayList<FlashCard> flashCards = new ArrayList<>();
 
     public FlashCardReader(String filename) {
         try {
@@ -29,5 +31,9 @@ public class FlashCardReader {
             System.out.println("Reader not ready");
             return false;
         }
+    }
+
+    public ArrayList<FlashCard> getFlashCards() {
+        return flashCards;
     }
 }
