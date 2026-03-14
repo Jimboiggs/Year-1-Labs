@@ -38,10 +38,12 @@ public class FlashCardReader {
     public ArrayList<FlashCard> getFlashCards() {
         if (flashCards.isEmpty()) { // only populate once
             while (true) {
-                String question = getLine();
-                if (question == null) break;
-                String answer = getLine();
-                if (answer == null) break;
+                String line = getLine();
+                if (line == null) break;
+                int colonIndex = line.indexOf(':');
+                if (colonIndex == -1) continue; // skip malformed lines
+                String question = line.substring(0, colonIndex);
+                String answer = line.substring(colonIndex + 1);
                 flashCards.add(new FlashCard(question, answer));
             }
         }
