@@ -30,6 +30,7 @@ public class Quiz {
             }
         }
         for (FlashCard card : quizCards) {
+            this.card = card;
             count++;
             System.out.println(card.getQuestion());
             input = toolbox.readStringFromCmd();
@@ -46,7 +47,9 @@ public class Quiz {
                 save();
             }
         }
-        ps.close();
+        if (ps != null) {
+            ps.close();
+        }
     }
 
     public static void main(String[] args) {
@@ -69,7 +72,7 @@ public class Quiz {
             ps.print(",");
             ps.print(count);
             ps.print(",");
-            ps.print(score/count);
+            ps.println((double) score / count);
         }
     }
 }
