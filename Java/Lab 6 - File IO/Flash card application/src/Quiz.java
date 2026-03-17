@@ -22,6 +22,7 @@ public class Quiz {
 
     public void play() {
         String choice = toolbox.readStringFromCmd();
+        System.out.println("Choice was: " + choice);
         if (choice.equals("Y")) {
             try {
                 ps = new PrintStream(new File("save.txt"));
@@ -67,12 +68,14 @@ public class Quiz {
         } else {
             ps.println("wrong");
         }
+        System.out.println("count=" + count + " size=" + quizCards.size());
         if (count == quizCards.size()) {
-            ps.print(score);
-            ps.print(",");
-            ps.print(count);
-            ps.print(",");
-            ps.println((double) score / count);
+            System.out.println("Writing summary");
+            ps.println(score + "," + count + "," + ((double) score / count * 100));
         }
+    }
+
+    public Quiz(ArrayList<FlashCard> cards) {
+        quizCards = cards;
     }
 }
