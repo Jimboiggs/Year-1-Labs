@@ -1,4 +1,5 @@
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.PrintStream;
 import java.util.ArrayList;
 
@@ -21,8 +22,12 @@ public class Quiz {
 
     public void play() {
         String choice = toolbox.readStringFromCmd();
-        if (choice == "Y") {
-            ps = new PrintStream(new File("save.txt"));
+        if (choice.equals("Y")) {
+            try {
+                ps = new PrintStream(new File("save.txt"));
+            } catch (FileNotFoundException e) {
+                System.out.println("Error writing to file");
+            }
         }
         for (FlashCard card : quizCards) {
             count++;
@@ -37,7 +42,7 @@ public class Quiz {
                 System.out.println(card.getAnswer());
                 correct = false;
             }
-            if (choice == "Y") {
+            if (choice.equals("Y")) {
                 save();
             }
         }
