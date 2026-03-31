@@ -1,11 +1,11 @@
 public class Counter {
-    Integer count;
+    private int count = 0;
 
-    public void addOne() {
+    public synchronized void addOne() {
         count += 1;
     }
 
-    public Integer getCount() {
+    public int getCount() {
         return count;
     }
 }
