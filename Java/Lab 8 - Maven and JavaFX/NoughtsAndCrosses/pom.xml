@@ -37,7 +37,7 @@
                 <artifactId>javafx-maven-plugin</artifactId>
                 <version>0.0.8</version>
                 <configuration>
-                    <mainClass>comp1206.Main</mainClass>
+                    <mainClass>comp1206.App</mainClass>
                 </configuration>
             </plugin>
         </plugins>
