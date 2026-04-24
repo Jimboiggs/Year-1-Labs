@@ -8,6 +8,7 @@ import javafx.scene.control.Button;
 
 public class App extends Application {
     private Button[][] buttons = new Button[3][3];
+    private ButtonClickHandler clickHandler = new ButtonClickHandler();
 
     @Override
     public void start(Stage stage) {
@@ -24,12 +25,36 @@ public class App extends Application {
                 gridPane.add(button, col, row);
             }
         }
-
+        clickHandler.setActions();
         stage.setScene(new Scene(gridPane));
         stage.show();
     }
 
     public static void main(String[] args) {
         launch();
+    }
+
+    class ButtonClickHandler {
+        private int playerTurn = 1;
+        private void setActions() {
+            for (int row = 0; row < 3; row++) {
+                for (int col = 0; col < 3; col++) {
+                    Button button = buttons[row][col];
+
+                    button.setOnAction(e -> {
+
+                        if (playerTurn == 1) {
+                            button.setText("X");
+                            playerTurn = 2;
+                        } else {
+                            button.setText("O");
+                            playerTurn = 1;
+                        }
+
+                        button.setDisable(true);
+                    });
+                }
+            }
+        }
     }
 }
