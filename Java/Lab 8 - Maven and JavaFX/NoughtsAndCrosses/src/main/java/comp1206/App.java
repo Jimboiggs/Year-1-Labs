@@ -11,11 +11,32 @@ import javafx.scene.control.Label;
 public class App extends Application {
     private Button[][] buttons = new Button[3][3];
     private ButtonClickHandler clickHandler = new ButtonClickHandler();
-    private Label statusLabel = new Label("Game in progress");
+    int playerTurn = 1;
+    Label statusLabel;
+    int xWins = 0;
+    int oWins = 0;
+    int draws = 0;
 
     @Override
     public void start(Stage stage) {
         stage.setTitle("Noughts and Crosses");
+
+        Label statusLabel = new Label("Game in progress. X wins = " + xWins + ". Y wins = " + oWins + ". Draws = " + draws);
+
+        // Reset button
+        Button resetButton = new Button();
+        resetButton.setText("Reset");
+        resetButton.setOnAction(e -> {
+            for (int r = 0; r < 3; r++) {
+                for (int c = 0; c < 3; c++) {
+                    buttons[r][c].setDisable(false);
+                    buttons[r][c].setText("");
+                    statusLabel.setText("Game in progress. X wins = " + xWins + ". Y wins = " + oWins + ". Draws = " + draws);
+                    playerTurn = 1;
+                }
+            }
+        });
+
         // Grid pane
         GridPane gridPane = new GridPane();
         gridPane.setHgap(10);
@@ -30,7 +51,7 @@ public class App extends Application {
         }
         clickHandler.setActions();
         VBox root = new VBox(10);
-        root.getChildren().addAll(gridPane, statusLabel);
+        root.getChildren().addAll(resetButton, gridPane, statusLabel);
         stage.setScene(new Scene(root));
         stage.show();
     }
@@ -40,7 +61,7 @@ public class App extends Application {
     }
 
     class ButtonClickHandler {
-        private int playerTurn = 1;
+
         private void setActions() {
             for (int row = 0; row < 3; row++) {
                 for (int col = 0; col < 3; col++) {
@@ -60,6 +81,11 @@ public class App extends Application {
 
                         String winner = checkWinner();
                         if (winner != null) {
+                            if (winner == "X") {
+                                xWins += 1;
+                            } else {
+                                oWins += 1;
+                            }
                             statusLabel.setText(winner + " Wins!");
                             for (int r = 0; r < 3; r++) {
                                 for (int c = 0; c < 3; c++) {
