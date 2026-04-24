@@ -5,10 +5,13 @@ import javafx.scene.Scene;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 import javafx.scene.control.Button;
+import javafx.scene.layout.VBox;
+import javafx.scene.control.Label;
 
 public class App extends Application {
     private Button[][] buttons = new Button[3][3];
     private ButtonClickHandler clickHandler = new ButtonClickHandler();
+    private Label statusLabel = new Label("Game in progress");
 
     @Override
     public void start(Stage stage) {
@@ -26,7 +29,9 @@ public class App extends Application {
             }
         }
         clickHandler.setActions();
-        stage.setScene(new Scene(gridPane));
+        VBox root = new VBox(10);
+        root.getChildren().addAll(gridPane, statusLabel);
+        stage.setScene(new Scene(root));
         stage.show();
     }
 
@@ -52,9 +57,46 @@ public class App extends Application {
                         }
 
                         button.setDisable(true);
+
+                        String winner = checkWinner();
+                        if (winner != null) {
+                            statusLabel.setText(winner + " Wins!");
+                            for (int r = 0; r < 3; r++) {
+                                for (int c = 0; c < 3; c++) {
+                                    buttons[r][c].setDisable(true);
+                                }
+                            }
+                        }
                     });
                 }
             }
         }
+    }
+
+    private String checkWinner() {
+        // Rows and columns
+        for (int i = 0; i < 3; i++) {
+            if (buttons[i][0].getText().equals(buttons[i][1].getText()) && buttons[i][1].getText().equals(buttons[i][2].getText()) && !buttons[i][0].getText().equals("")) {
+                return buttons[i][0].getText();
+            }
+            else if (buttons[0][i].getText().equals(buttons[1][i].getText()) && buttons[1][i].getText().equals(buttons[2][i].getText()) && !buttons[0][i].getText().equals("")) {
+                return buttons[0][i].getText();
+            }
+        }
+        // Diagonals
+        if (!buttons[0][0].getText().equals("") &&
+                buttons[0][0].getText().equals(buttons[1][1].getText()) &&
+                buttons[1][1].getText().equals(buttons[2][2].getText())) {
+
+            return buttons[0][0].getText();
+        }
+        if (!buttons[0][2].getText().equals("") &&
+                buttons[0][2].getText().equals(buttons[1][1].getText()) &&
+                buttons[1][1].getText().equals(buttons[2][0].getText())) {
+
+            return buttons[0][2].getText();
+        }
+
+        return null;
     }
 }
