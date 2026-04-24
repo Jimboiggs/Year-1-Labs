@@ -15,10 +15,10 @@ P9 - Pointers, memory management, IO
 
 ## Java
 P0 - Setup
-P1 - Loops and conditional statements
-P2 - Collections, string manipulation, ArrayLists and HashMaps
-P3 - HashMaps and polymorphism
-P4 - Overloading, recursion and exceptions
-P5 - Debugging and Testing
-P6 - File IO
-P7 - Multi-threading and synchronisation
+P1 - Loops and conditional statements\
+P2 - Collections, string manipulation, ArrayLists and HashMaps\
+P3 - HashMaps and polymorphism\
+P4 - Overloading, recursion and exceptions\
+P5 - Debugging and Testing\
+P6 - File IO\
+P7 - Multi-threading and synchronisation\
