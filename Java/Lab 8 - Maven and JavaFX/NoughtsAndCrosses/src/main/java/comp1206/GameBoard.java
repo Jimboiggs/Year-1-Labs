@@ -65,4 +65,15 @@ public class GameBoard {
     public int getSize() {
         return size;
     }
+
+    public boolean isFull() {
+        for (int i = 0; i < size; i++) {
+            for (int j = 0; j < size; j++) {
+                if (board[i][j].equals("")) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
 }

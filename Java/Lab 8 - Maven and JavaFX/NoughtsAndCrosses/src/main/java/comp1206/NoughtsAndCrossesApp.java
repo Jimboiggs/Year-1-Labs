@@ -11,10 +11,13 @@ import javafx.scene.Scene;
 
 public class NoughtsAndCrossesApp extends Application {
     private GameBoard board = new GameBoard(3);
-    private Button[][] buttons = new Button[board.getSize()][board.getSize()];
+    private Button[][] buttons;
+    private Stage stage;
+    private Label info = new Label();
 
     @Override
     public void start(Stage stage) {
+        this.stage = stage;
         stage.setScene(getStartScene(stage));
         stage.show();
     }
@@ -29,20 +32,24 @@ public class NoughtsAndCrossesApp extends Application {
             button.setDisable(true);
             String winner = board.checkWinner();
             if (!winner.equals("")) {
-                System.out.println(winner + " wins!");
+                stage.setScene(getEndScreen(stage, winner));
                 for (int r = 0; r < board.getSize(); r++) {
                     for (int c = 0; c < board.getSize(); c++) {
                         buttons[r][c].setDisable(true);
                     }
                 }
-            } else {
-                board.switchPlayer();
             }
+            if (board.isFull() && winner.equals("")) {
+                stage.setScene(getEndScreen(stage, "Draw"));
+            }
+            board.switchPlayer();
+            info.setText("Turn: " + board.currentPlayer);
         }
     }
 
     public Scene getGameScene(Stage stage, String xName, String oName) {
-        Label info = new Label();
+        buttons = new Button[board.getSize()][board.getSize()];
+        info.setText("Turn: " + board.currentPlayer);
         GridPane gridPane = new GridPane();
         gridPane.setHgap(10);
         gridPane.setVgap(10);
@@ -86,13 +93,18 @@ public class NoughtsAndCrossesApp extends Application {
         return new Scene(vbox);
     }
 
-    public Scene getEndScreen(Stage stage) {
+    public Scene getEndScreen(Stage stage, String winner) {
         Label winnerText = new Label();
-        winnerText.setText(board.currentPlayer + " wins!");
+        if (winner.equals("Draw")) {
+            winnerText.setText("Draw!");
+        } else {
+            winnerText.setText(winner + " wins!");
+        }
         Button OKButton = new Button();
         OKButton.setText("OK");
         OKButton.setOnAction(e-> {
-            getStartScene(stage);
+            board.resetBoard();
+            stage.setScene(getStartScene(stage));
         });
         VBox root = new VBox(winnerText, OKButton);
         return new Scene(root);
