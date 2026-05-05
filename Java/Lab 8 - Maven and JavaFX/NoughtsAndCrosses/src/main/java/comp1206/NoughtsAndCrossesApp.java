@@ -38,9 +38,15 @@ public class NoughtsAndCrossesApp extends Application {
     public void handleMove(Button button, int row, int col) {
         if (board.makeMove(row, col)) {
             button.setText(board.currentPlayer);
+            button.setDisable(true);
             String winner = board.checkWinner();
             if (!winner.equals("")) {
                 System.out.println(winner + " wins!");
+                for (int r = 0; r < 3; r++) {
+                    for (int c = 0; c < 3; c++) {
+                        buttons[r][c].setDisable(true);
+                    }
+                }
             } else {
                 board.switchPlayer();
             }
