@@ -14,6 +14,8 @@ public class NoughtsAndCrossesApp extends Application {
     private Button[][] buttons;
     private Stage stage;
     private Label info = new Label();
+    private String xName;
+    private String oName;
 
     @Override
     public void start(Stage stage) {
@@ -43,13 +45,25 @@ public class NoughtsAndCrossesApp extends Application {
                 stage.setScene(getEndScreen(stage, "Draw"));
             }
             board.switchPlayer();
-            info.setText("Turn: " + board.currentPlayer);
+            String currentName;
+            if (board.currentPlayer.equals("X")) {
+                currentName = xName;
+            } else {
+                currentName = oName;
+            }
+            info.setText("Turn: " + currentName);
         }
     }
 
     public Scene getGameScene(Stage stage, String xName, String oName) {
         buttons = new Button[board.getSize()][board.getSize()];
-        info.setText("Turn: " + board.currentPlayer);
+        String currentName;
+        if (board.currentPlayer.equals("X")) {
+            currentName = xName;
+        } else {
+            currentName = oName;
+        }
+        info.setText("Turn: " + currentName);
         GridPane gridPane = new GridPane();
         gridPane.setHgap(10);
         gridPane.setVgap(10);
@@ -57,7 +71,7 @@ public class NoughtsAndCrossesApp extends Application {
         for (int row = 0; row < board.getSize(); row++) {
             for (int col = 0; col < board.getSize(); col++) {
                 Button button = new Button("");
-                button.setMinSize(160, 160);
+                button.setMinSize(140, 140);
                 buttons[row][col] = button;
                 int finalRow = row;
                 int finalCol = col;
@@ -70,15 +84,24 @@ public class NoughtsAndCrossesApp extends Application {
     }
 
     public Scene getStartScene(Stage stage) {
-        TextField XName = new TextField("X name");
-        TextField OName = new TextField("O name");
-        TextField size = new TextField("Grid size (int)");
+        Label xField = new Label("X name:");
+        TextField XName = new TextField("");
+        Label oField = new Label("O name:");
+        TextField OName = new TextField("");
+        Label sizeField = new Label("Size (int):");
+        TextField size = new TextField("");
         Button startButton = new Button("Start");
         startButton.setOnAction(e -> {
-            String xName = XName.getText();
-            String oName = OName.getText();
-            int gridSize = Integer.parseInt(size.getText());
-            board = new GameBoard(gridSize);
+            this.xName = XName.getText();
+            this.oName = OName.getText();
+            String input = size.getText();
+            if (!input.isEmpty())
+            {
+                int gridSize = Integer.parseInt(input);
+                board = new GameBoard(gridSize);
+            } else {
+                board = new GameBoard(3);
+            }
             stage.setScene(getGameScene(stage, xName, oName));
         });
         startButton.setDisable(true);
@@ -89,7 +112,7 @@ public class NoughtsAndCrossesApp extends Application {
         OName.textProperty().addListener((obs, oldVal, newVal) ->
                 startButton.setDisable(XName.getText().isEmpty() || OName.getText().isEmpty())
         );
-        VBox vbox = new VBox(XName, OName, size, startButton);
+        VBox vbox = new VBox(xField, XName, oField, OName, sizeField, size, startButton);
         return new Scene(vbox);
     }
 
@@ -98,15 +121,20 @@ public class NoughtsAndCrossesApp extends Application {
         if (winner.equals("Draw")) {
             winnerText.setText("Draw!");
         } else {
-            winnerText.setText(winner + " wins!");
+            String winnerName;
+            if (winner.equals("X")) {
+                winnerName = xName;
+            } else {
+                winnerName = oName;
+            }
+            winnerText.setText(winnerName + " wins!");
         }
-        Button OKButton = new Button();
-        OKButton.setText("OK");
-        OKButton.setOnAction(e-> {
+        Button OKButton = new Button("OK");
+        OKButton.setOnAction(e -> {
             board.resetBoard();
             stage.setScene(getStartScene(stage));
         });
-        VBox root = new VBox(winnerText, OKButton);
+        VBox root = new VBox(10, winnerText, OKButton);
         return new Scene(root);
     }
 }
