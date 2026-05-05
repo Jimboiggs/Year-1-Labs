@@ -26,10 +26,12 @@ public class GameBoard {
         }
     }
 
-    public void makeMove(int row, int col) {
+    public boolean makeMove(int row, int col) {
         if (board[row][col].equals("")) {
             board[row][col] = currentPlayer;
+            return true;
         }
+        return false;
     }
 
     public String checkWinner() {

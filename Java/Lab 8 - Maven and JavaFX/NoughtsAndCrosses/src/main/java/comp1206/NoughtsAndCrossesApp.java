@@ -21,7 +21,10 @@ public class NoughtsAndCrossesApp extends Application {
                 Button button = new Button("");
                 button.setMinSize(160, 160);
                 buttons[row][col] = button;
+                int finalRow = row;
+                int finalCol = col;
                 gridPane.add(button, col, row);
+                button.setOnAction(e -> handleMove(button, finalRow, finalCol));
             }
         }
         stage.setScene(new Scene(gridPane));
@@ -30,5 +33,17 @@ public class NoughtsAndCrossesApp extends Application {
 
     public static void main(String[] args) {
         launch();
+    }
+
+    public void handleMove(Button button, int row, int col) {
+        if (board.makeMove(row, col)) {
+            button.setText(board.currentPlayer);
+            String winner = board.checkWinner();
+            if (!winner.equals("")) {
+                System.out.println(winner + " wins!");
+            } else {
+                board.switchPlayer();
+            }
+        }
     }
 }
