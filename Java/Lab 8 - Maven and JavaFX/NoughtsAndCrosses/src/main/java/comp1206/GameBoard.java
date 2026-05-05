@@ -61,4 +61,8 @@ public class GameBoard {
 
         return "";
     }
+
+    public int getSize() {
+        return size;
+    }
 }
