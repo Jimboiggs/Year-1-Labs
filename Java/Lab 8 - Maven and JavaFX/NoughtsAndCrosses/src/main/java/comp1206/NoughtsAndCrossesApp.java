@@ -16,6 +16,9 @@ public class NoughtsAndCrossesApp extends Application {
     private Label info = new Label();
     private String xName;
     private String oName;
+    private int xWins = 0;
+    private int oWins = 0;
+    private int draws = 0;
 
     @Override
     public void start(Stage stage) {
@@ -40,9 +43,15 @@ public class NoughtsAndCrossesApp extends Application {
                         buttons[r][c].setDisable(true);
                     }
                 }
+                if (winner.equals("X")) {
+                    xWins++;
+                } else {
+                    oWins++;
+                }
             }
             if (board.isFull() && winner.equals("")) {
                 stage.setScene(getEndScreen(stage, "Draw"));
+                draws++;
             }
             board.switchPlayer();
             String currentName;
