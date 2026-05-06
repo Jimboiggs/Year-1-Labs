@@ -146,7 +146,7 @@ public class NoughtsAndCrossesApp extends Application {
             stage.setScene(getStartScene(stage));
         });
         VBox root = new VBox(10, winnerText, OKButton);
-        return new Scene(root);
+        return new Scene(root, 150, 50);
     }
 
     public void showScoreWindow() {
