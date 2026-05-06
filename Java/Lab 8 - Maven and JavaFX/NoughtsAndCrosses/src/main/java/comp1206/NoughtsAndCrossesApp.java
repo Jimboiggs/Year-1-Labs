@@ -88,7 +88,9 @@ public class NoughtsAndCrossesApp extends Application {
                 button.setOnAction(e -> handleMove(button, finalRow, finalCol));
             }
         }
-        VBox root = new VBox(info, gridPane);
+        Button scoreButton = new Button("Show Scores");
+        scoreButton.setOnAction(e -> showScoreWindow());
+        VBox root = new VBox(info, gridPane, scoreButton);
         return new Scene(root);
     }
 
@@ -145,5 +147,15 @@ public class NoughtsAndCrossesApp extends Application {
         });
         VBox root = new VBox(10, winnerText, OKButton);
         return new Scene(root);
+    }
+
+    public void showScoreWindow() {
+        Stage scoreStage = new Stage();
+        Label scores = new Label("X wins: " + xWins + "\n" + "O wins: " + oWins + "\n" + "Draws: " + draws);
+        VBox root = new VBox(10, scores);
+        Scene scene = new Scene(root, 200, 150);
+        scoreStage.setTitle("Scoreboard");
+        scoreStage.setScene(scene);
+        scoreStage.show();
     }
 }
