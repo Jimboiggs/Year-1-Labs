@@ -124,7 +124,7 @@ public class NoughtsAndCrossesApp extends Application {
                 startButton.setDisable(XName.getText().isEmpty() || OName.getText().isEmpty())
         );
         VBox vbox = new VBox(xField, XName, oField, OName, sizeField, size, startButton);
-        return new Scene(vbox);
+        return new Scene(vbox, 500, 170);
     }
 
     public Scene getEndScreen(Stage stage, String winner) {
@@ -153,7 +153,7 @@ public class NoughtsAndCrossesApp extends Application {
         Stage scoreStage = new Stage();
         Label scores = new Label("X wins: " + xWins + "\n" + "O wins: " + oWins + "\n" + "Draws: " + draws);
         VBox root = new VBox(10, scores);
-        Scene scene = new Scene(root, 200, 150);
+        Scene scene = new Scene(root, 500, 500);
         scoreStage.setTitle("Scoreboard");
         scoreStage.setScene(scene);
         scoreStage.show();
